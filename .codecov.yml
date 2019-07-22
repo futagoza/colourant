@@ -1,0 +1,7 @@
+ignore:
+  - "ava.config.js"
+  - "test/**/*.js"
+
+parsers:
+  javascript:
+    enable_partials: yes

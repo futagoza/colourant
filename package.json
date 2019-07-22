@@ -1,0 +1,46 @@
+{
+    "name": "colourant",
+    "version": "0.0.0",
+    "description": "A Node.js library for formatting terminal text using ANSI",
+    "keywords": [
+        "ansi",
+        "color",
+        "format",
+        "log",
+        "terminal",
+        "text"
+    ],
+    "repository": "futagoza/colourant",
+    "license": "MIT",
+    "author": "Futago-za Ryuu <futagoza.ryuu@gmail.com>",
+    "files": [
+        "index.js",
+        "index.d.ts"
+    ],
+    "main": "index.js",
+    "types": "index.d.ts",
+    "scripts": {
+        "ava -u": "ava -u",
+        "test": "nyc ava",
+        "benchmark": "node bench",
+        "load": "node bench/load",
+        "lint": "eslint .",
+        "coverage": "codecov -f coverage/*.json",
+        "postversion": "git push --follow-tags && npm publish"
+    },
+    "devDependencies": {
+        "@futagoza/eslint-config": "8.2.0",
+        "ansi": "0.3.1",
+        "ansi-colors": "4.1.1",
+        "ava": "2.2.0",
+        "benchmark": "2.1.4",
+        "chalk": "2.4.2",
+        "codecov": "3.5.0",
+        "eslint": "6.0.1",
+        "kleur": "3.0.3",
+        "nyc": "14.1.1"
+    },
+    "engines": {
+        "node": ">= 8"
+    }
+}
