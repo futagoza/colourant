@@ -5,7 +5,7 @@ const cursor = require( "ansi" )( process.stdout );
 const color = require( "ansi-colors" );
 const chalk = require( "chalk" );
 const kleur = require( "kleur" );
-const { colourant } = require( ".." );
+const colourant = require( ".." );
 
 const names = [
     "reset",
