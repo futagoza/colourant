@@ -20,7 +20,7 @@
     ],
     "main": "index.js",
     "scripts": {
-        "ava -u": "ava -u",
+        "ava+update-snapshots": "ava -u",
         "test": "nyc ava",
         "benchmark": "npm run rebuild && npm run benchmark:load && npm run benchmark:perf",
         "lint": "eslint .",

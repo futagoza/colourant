@@ -59,7 +59,7 @@ function BuildChainableTransformer<T>( styles: StyleDefinitions, ...cache: Trans
 
     for ( const data of cache ) {
 
-        PREFACE += data.open;
+        PREFACE = data.open + PREFACE;
         POSTFIX += data.close;
 
     }
