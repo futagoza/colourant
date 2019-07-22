@@ -131,7 +131,7 @@ colourant.codes = codes;
  * When this returns `false`, it means _colourant_ is not appling transform's to any strings.
  */
 
-colourant.enabled = () => NO_COLOR === true;
+colourant.enabled = () => NO_COLOR === false;
 
 /**
  * Ensure's that transformer's from `colourant` _apply thier transform's_.
