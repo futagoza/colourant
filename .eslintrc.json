@@ -5,7 +5,9 @@
         "@typescript-eslint/no-object-literal-type-assertion": 0,
         "@typescript-eslint/no-parameter-properties": 0,
         "@typescript-eslint/no-type-alias": 0,
-        "newline-per-chained-call": 0
+        "@typescript-eslint/restrict-plus-operands": 0,
+        "newline-per-chained-call": 0,
+        "operator-assignment": 0
     },
     "root": true
 }

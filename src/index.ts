@@ -79,7 +79,6 @@ function BuildChainableTransformer<T>( styles: StyleDefinitions, ...cache: Trans
 
             if ( NO_COLOR ) return `${ input }`;
 
-            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands, operator-assignment
             input = input + "";
 
             for ( const data of cache ) {
@@ -116,7 +115,6 @@ export function colourant( ...codegroups: CodeGroup[] ): Transformer {
 
     const cache = codegroups.map( codegroup => {
 
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands, operator-assignment
         const data = colourant.style( codegroup.join( "-" ), codegroup );
 
         PREFACE = data.open + PREFACE;
@@ -130,7 +128,6 @@ export function colourant( ...codegroups: CodeGroup[] ): Transformer {
 
         if ( NO_COLOR ) return `${ input }`;
 
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands, operator-assignment
         input = input + "";
 
         for ( const data of cache ) {
@@ -224,7 +221,6 @@ colourant.from = ( ( start: number | CodeGroup, end: number ) => {
 
             input = input.replace( data.rgx, data.close + data.open );
 
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
         return data.open + input + data.close;
 
     };
