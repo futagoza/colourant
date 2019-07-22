@@ -30,25 +30,37 @@ let NO_COLOR = ( () => {
 
 function AssignChainableTransformers( $: unknown, styles: StyleDefinitions, cache: TransformData[] ) {
 
-    function __create( name: string ) {
+    function __assign( name: string ) {
 
         let o: ChainableTransformer<unknown>;
 
-        return function get() {
+        function get() {
 
             if ( ! o ) o = BuildChainableTransformer<unknown>( styles, ...cache, styles[ name ] );
 
             return o;
 
-        };
+        }
+
+        Object.defineProperty( $, name, { configurable: true, get } );
 
     }
+    Object.keys( styles ).forEach( __assign );
 
-    for ( const name of Object.keys( styles ) ) {
+}
 
-        Object.defineProperty( $, name, { configurable: true, get: __create( name ) } );
+function EscapeInput( input: Input, cache: TransformData[] ) {
+
+    let result = input + "";
+
+    function __escape( data: TransformData ) {
+
+        if ( result.includes( data.close ) ) result = result.replace( data.rgx, data.close + data.open );
 
     }
+    cache.forEach( __escape );
+
+    return result;
 
 }
 
@@ -57,12 +69,13 @@ function BuildChainableTransformer<T>( styles: StyleDefinitions, ...cache: Trans
     let PREFACE = "";
     let POSTFIX = "";
 
-    for ( const data of cache ) {
+    function __prepost( data: TransformData ) {
 
         PREFACE = data.open + PREFACE;
         POSTFIX += data.close;
 
     }
+    cache.forEach( __prepost );
 
     /* istanbul ignore next */
     const $ = cache.length === 0
@@ -79,15 +92,7 @@ function BuildChainableTransformer<T>( styles: StyleDefinitions, ...cache: Trans
 
             if ( NO_COLOR ) return `${ input }`;
 
-            input = input + "";
-
-            for ( const data of cache ) {
-
-                if ( input.includes( data.close ) ) input = input.replace( data.rgx, data.close + data.open );
-
-            }
-
-            return PREFACE + input + POSTFIX;
+            return PREFACE + EscapeInput( input, cache ) + POSTFIX;
 
         };
 
@@ -112,31 +117,25 @@ export function colourant( ...codegroups: CodeGroup[] ): Transformer {
 
     let PREFACE = "";
     let POSTFIX = "";
+    const cache = [] as TransformData[];
 
-    const cache = codegroups.map( codegroup => {
+    function __cache( codegroup: CodeGroup ) {
 
         const data = colourant.style( codegroup.join( "-" ), codegroup );
 
         PREFACE = data.open + PREFACE;
         POSTFIX += data.close;
 
-        return data;
+        cache[ cache.length ] = data;
 
-    } );
+    }
+    codegroups.forEach( __cache );
 
     return ( input: Input ) => {
 
         if ( NO_COLOR ) return `${ input }`;
 
-        input = input + "";
-
-        for ( const data of cache ) {
-
-            if ( input.includes( data.close ) ) input = input.replace( data.rgx, data.close + data.open );
-
-        }
-
-        return PREFACE + input + POSTFIX;
+        return PREFACE + EscapeInput( input, cache ) + POSTFIX;
 
     };
 
@@ -281,11 +280,12 @@ colourant.chain = <T>( codemap: CodeGroupMap<T> ) => {
 
     const styles = {} as StyleDefinitions;
 
-    for ( const name of Object.keys( codemap ) ) {
+    function __build( name: string ) {
 
         styles[ name ] = colourant.style( name, codemap[ name ] );
 
     }
+    Object.keys( codemap ).forEach( __build );
 
     return BuildChainableTransformer<T>( styles );
 
@@ -299,17 +299,22 @@ colourant.assign = <T, M>( target: T, codemap: CodeGroupMap<M> ) => {
 
     const styles = {} as StyleDefinitions;
 
-    for ( const name of Object.keys( codemap ) ) {
+    function __build( name: string ) {
 
         styles[ name ] = colourant.style( name, codemap[ name ] );
 
     }
 
-    for ( const name of Object.keys( styles ) ) {
+    function __assign( name: string ) {
 
         target[ name ] = BuildChainableTransformer<unknown>( styles, styles[ name ] );
 
     }
+
+    const keys = Object.keys( codemap );
+
+    keys.forEach( __build );
+    keys.forEach( __assign );
 
     return target as T & ChainTransformerMap<M>;
 
