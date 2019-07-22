@@ -3,19 +3,15 @@
 import { serial as test } from "ava";
 import colourant from "../src";
 
-test( "basic usage: colourant", t => {
+test( "basic usage", t => {
+
+    colourant.enable();
 
     const multiStyled = colourant( [ 1, 22 ], [ 36, 39 ] );
-
-    t.snapshot( multiStyled( "multi styled text" ) );
-
-} );
-
-test( "basic usage: colourant.from", t => {
-
     const singleStyleFromNumbers = colourant.from( 90, 39 );
     const singleStyleFromArray = colourant.from( [ 32, 39 ] );
 
+    t.snapshot( multiStyled( "multi styled text" ) );
     t.snapshot( singleStyleFromNumbers( "single styled text" ) );
     t.snapshot( singleStyleFromArray( "single styled text" ) );
 
