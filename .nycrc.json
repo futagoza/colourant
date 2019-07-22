@@ -1,6 +1,5 @@
 {
     "all": true,
-    "cache": true,
     "include": [
         "src/**/*.ts"
     ],

@@ -2,7 +2,6 @@
 
 exports.default = {
 
-    "cache": true,
     "failFast": false,
     "failWithoutAssertions": false,
     "compileEnhancements": false,
