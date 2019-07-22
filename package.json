@@ -14,22 +14,25 @@
     "license": "MIT",
     "author": "Futago-za Ryuu <futagoza.ryuu@gmail.com>",
     "files": [
-        "index.js",
-        "index.d.ts"
+        "src",
+        "out"
     ],
-    "main": "index.js",
-    "types": "index.d.ts",
+    "main": "out/index.js",
     "scripts": {
         "ava -u": "ava -u",
         "test": "nyc ava",
-        "benchmark": "node bench",
-        "load": "node bench/load",
+        "benchmark": "npm run rebuild && npm run benchmark:load && npm run benchmark:perf",
         "lint": "eslint .",
+        "benchmark:perf": "node bench",
+        "benchmark:load": "node bench/load",
+        "rebuild": "rimraf out && tsc -p src",
         "coverage": "codecov -f coverage/*.json",
+        "preversion": "npm test && npm run rebuild",
         "postversion": "git push --follow-tags && npm publish"
     },
     "devDependencies": {
         "@futagoza/eslint-config": "8.2.0",
+        "@futagoza/tsconfig": "1.0.0",
         "ansi": "0.3.1",
         "ansi-colors": "4.1.1",
         "ava": "2.2.0",
@@ -38,7 +41,10 @@
         "codecov": "3.5.0",
         "eslint": "6.0.1",
         "kleur": "3.0.3",
-        "nyc": "14.1.1"
+        "nyc": "14.1.1",
+        "rimraf": "2.6.3",
+        "ts-node": "8.3.0",
+        "typescript": "3.5.3"
     },
     "engines": {
         "node": ">= 8"

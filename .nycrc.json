@@ -1,7 +1,17 @@
 {
     "all": true,
+    "cache": true,
     "include": [
-        "index.js"
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "**/*.d.ts"
+    ],
+    "extension": [
+        ".ts"
+    ],
+    "require": [
+        "ts-node/register"
     ],
     "reporter": [
         "json",

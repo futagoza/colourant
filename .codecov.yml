@@ -1,6 +1,7 @@
 ignore:
-  - "ava.config.js"
-  - "test/**/*.js"
+  - "**/*.js"
+  - "**/*.d.ts"
+  - "test/**/*.ts"
 
 parsers:
   javascript:
