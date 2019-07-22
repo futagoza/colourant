@@ -106,18 +106,42 @@ function BuildChainableTransformer<T>( styles: StyleDefinitions, ...cache: Trans
 
 export function colourant( ...codegroups: CodeGroup[] ): Transformer {
 
-    const styles = {} as StyleDefinitions;
+    const count = codegroups.length;
 
-    codegroups.forEach( ( codegroup, i ) => {
+    if ( count === 0 ) return ( input: Input ) => `${ input }`;
+    if ( count === 1 ) return colourant.from( codegroups[ 0 ] );
+
+    let PREFACE = "";
+    let POSTFIX = "";
+
+    const cache = codegroups.map( codegroup => {
 
         // eslint-disable-next-line @typescript-eslint/restrict-plus-operands, operator-assignment
-        styles[ i ] = colourant.style( i + "", codegroup );
+        const data = colourant.style( codegroup.join( "-" ), codegroup );
+
+        PREFACE = data.open + PREFACE;
+        POSTFIX += data.close;
+
+        return data;
 
     } );
 
-    const chain = BuildChainableTransformer<unknown>( styles );
+    return ( input: Input ) => {
 
-    return ( input: Input ) => chain[ codegroups.length - 1 ]( input );
+        if ( NO_COLOR ) return `${ input }`;
+
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands, operator-assignment
+        input = input + "";
+
+        for ( const data of cache ) {
+
+            if ( input.includes( data.close ) ) input = input.replace( data.rgx, data.close + data.open );
+
+        }
+
+        return PREFACE + input + POSTFIX;
+
+    };
 
 }
 
