@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = {
+exports.default = {
 
     "cache": true,
     "failFast": false,
