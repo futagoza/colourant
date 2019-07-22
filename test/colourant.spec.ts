@@ -1,6 +1,6 @@
 // Some of these tests are modified versions from https://github.com/lukeed/kleur/blob/master/test/index.js
 
-import test from "ava";
+import { serial as test } from "ava";
 import colourant from "../src";
 
 test( "basic usage", t => {
