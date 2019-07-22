@@ -102,6 +102,21 @@ function BuildChainableTransformer<T>( styles: StyleDefinitions, ...cache: Trans
 
 }
 
+function BuildStyleDefinition( name: string, code: CodeGroup ) {
+
+    return {
+
+        name,
+        code,
+
+        open: colourant.ANSI( code[ 0 ] ),
+        close: colourant.ANSI( code[ 1 ] ),
+        rgx: new RegExp( `\\x1b\\[${ code[ 1 ] }m`, "g" ),
+
+    };
+
+}
+
 /* ============================== @public ============================== */
 
 /**
@@ -121,7 +136,7 @@ export function colourant( ...codegroups: CodeGroup[] ): Transformer {
 
     function __cache( codegroup: CodeGroup ) {
 
-        const data = colourant.style( codegroup.join( "-" ), codegroup );
+        const data = BuildStyleDefinition( codegroup.join( "-" ), codegroup );
 
         PREFACE = data.open + PREFACE;
         POSTFIX += data.close;
@@ -184,25 +199,6 @@ colourant.disable = () => {
 colourant.ANSI = ( x: number ) => `\x1b[${ x }m`;
 
 /**
- * Builds the style definition used to transform a string.
- */
-
-colourant.style = ( name: string, code: CodeGroup ) => {
-
-    return {
-
-        name,
-        code,
-
-        open: colourant.ANSI( code[ 0 ] ),
-        close: colourant.ANSI( code[ 1 ] ),
-        rgx: new RegExp( `\\x1b\\[${ code[ 1 ] }m`, "g" ),
-
-    };
-
-};
-
-/**
  * Create's a non-chainable string transformer from a codegroup.
  */
 
@@ -210,7 +206,7 @@ colourant.from = ( ( start: number | CodeGroup, end: number ) => {
 
     const code = typeof start === "number" ? [ start, end ] : start;
 
-    const data = colourant.style( code.join( ", " ), code as CodeGroup );
+    const data = BuildStyleDefinition( code.join( ", " ), code as CodeGroup );
 
     return function transform( input: Input ) {
 
@@ -282,7 +278,7 @@ colourant.chain = <T>( codemap: CodeGroupMap<T> ) => {
 
     function __build( name: string ) {
 
-        styles[ name ] = colourant.style( name, codemap[ name ] );
+        styles[ name ] = BuildStyleDefinition( name, codemap[ name ] );
 
     }
     Object.keys( codemap ).forEach( __build );
@@ -301,7 +297,7 @@ colourant.assign = <T, M>( target: T, codemap: CodeGroupMap<M> ) => {
 
     function __build( name: string ) {
 
-        styles[ name ] = colourant.style( name, codemap[ name ] );
+        styles[ name ] = BuildStyleDefinition( name, codemap[ name ] );
 
     }
 
