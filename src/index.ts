@@ -166,7 +166,24 @@ colourant.codes = codes;
  * When this returns `false`, it means _colourant_ is not appling transform's to any strings.
  */
 
-colourant.enabled = () => NO_COLOR === false;
+colourant.enabled = void 0 as unknown as boolean;
+
+Object.defineProperty( colourant, "enabled", {
+
+    get() {
+
+        return NO_COLOR === false;
+
+    },
+
+    set( value: boolean ) {
+
+        // eslint-disable-next-line eqeqeq
+        NO_COLOR = value != true;
+
+    },
+
+} );
 
 /**
  * Ensure's that transformer's from `colourant` _apply thier transform's_.

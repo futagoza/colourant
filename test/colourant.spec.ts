@@ -5,7 +5,7 @@ import colourant from "../src";
 
 test( "basic usage", t => {
 
-    colourant.enable();
+    colourant.enabled = true;
 
     const multiStyled = colourant( [ 1, 22 ], [ 36, 39 ] );
     const singleStyleFromNumbers = colourant.from( 90, 39 );
@@ -17,12 +17,20 @@ test( "basic usage", t => {
 
 } );
 
-test( "enable/disable return the main function", t => {
+test( "colourant enable()/disable()", t => {
+
+    const { ANSI, disable, enable, red } = colourant;
+
+    enable();
+    t.is( red( "foo" ), ANSI( 31 ) + "foo" + ANSI( 39 ), "enable() ensures tranformed text" );
+
+    disable();
+    t.is( red( "foo" ), "foo", "disable() ensures raw text" );
 
     const keys = Object.keys( colourant );
 
-    t.deepEqual( Object.keys( colourant.disable() ), keys );
-    t.deepEqual( Object.keys( colourant.enable() ), keys );
+    t.deepEqual( Object.keys( disable() ), keys, "enable() returns the main function" );
+    t.deepEqual( Object.keys( enable() ), keys, "disable() returns the main function" );
 
 } );
 
@@ -145,11 +153,9 @@ test( "named chains", t => {
 
 } );
 
-test( "toggleable styling", t => {
+test( "disabled", t => {
 
-    t.true( colourant.enable() && colourant.enabled() );
-
-    t.false( colourant.disable() && colourant.enabled() );
+    t.false( colourant.disable() && colourant.enabled );
     t.is( colourant.red( "foo" ), "foo", "~> raw text only" );
     t.is( colourant.red().italic().bold( "foobar" ), "foobar", "~> chaining okay" );
 
