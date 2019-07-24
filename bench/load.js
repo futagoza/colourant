@@ -15,5 +15,5 @@ const color = require( "ansi-colors" );
 console.timeEnd( "ansi-colors" );
 
 console.time( "colourant" );
-const { colourant } = require( ".." );
+const colourant = require( ".." );
 console.timeEnd( "colourant" );
