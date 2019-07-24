@@ -5,6 +5,7 @@ import colourant from "../src";
 
 test( "basic usage", t => {
 
+    // There is a bug during CI tests where colourant is already disabled
     colourant.enabled = true;
 
     const multiStyled = colourant( [ 1, 22 ], [ 36, 39 ] );
