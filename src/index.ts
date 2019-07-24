@@ -21,9 +21,8 @@ let NO_COLOR = ( () => {
     return "NO_COLOR" in env
         || "NODE_DISABLE_COLORS" in env
         || env.FORCE_COLOR === "0"
-        || stdout == null
-        || stdout.isTTY !== true
-        || env.TERM == null
+        || ( stdout && stdout.isTTY !== true )
+        || ! ( "TERM" in env )
         || env.TERM === "dumb";
 
 } )();
