@@ -152,37 +152,37 @@ colourant.supportsColour()
 
 ## benchmarks
 
-> Using Node v12.6.0 on a laptop powered by an AMD A10-4600M APU & 6GB RAM
+> Using Node v12.13.0 on a laptop powered by an AMD A10-4600M APU & 6GB RAM
 
 #### Load time
 
 ```
-chalk       :: 57.240ms
-kleur       ::  3.389ms
-ansi-colors ::  8.243ms
-colourant   :: 13.433ms
+chalk       :: 23.930ms
+kleur       :: 28.807ms
+ansi-colors ::  8.997ms
+colourant   ::  8.633ms
 ```
 
 #### Performance
 
 ```
 # All Colors
-  ansi-colors  x  56,395 ops/sec ±2.34% (76 runs sampled)
-  chalk        x   3,166 ops/sec ±3.88% (69 runs sampled)
-  kleur        x 208,322 ops/sec ±2.36% (76 runs sampled)
-  colourant    x 264,908 ops/sec ±1.39% (78 runs sampled)
+  ansi-colors  x  63,296 ops/sec ±1.93% (75 runs sampled)
+  chalk        x 227,988 ops/sec ±1.32% (79 runs sampled)
+  kleur        x 229,516 ops/sec ±1.67% (81 runs sampled)
+  colourant    x 294,237 ops/sec ±1.50% (79 runs sampled)
 
 # Stacked colors
-  ansi-colors  x  6,152 ops/sec ±2.69% (70 runs sampled)
-  chalk        x    637 ops/sec ±4.34% (68 runs sampled)
-  kleur        x 22,137 ops/sec ±2.21% (77 runs sampled)
-  colourant    x 77,264 ops/sec ±1.46% (78 runs sampled)
+  ansi-colors  x   7,408 ops/sec ±1.07% (80 runs sampled)
+  chalk        x 174,681 ops/sec ±0.74% (83 runs sampled)
+  kleur        x  26,174 ops/sec ±0.79% (82 runs sampled)
+  colourant    x  90,674 ops/sec ±1.04% (81 runs sampled)
 
 # Nested colors
-  ansi-colors  x 17,563 ops/sec ±1.48% (82 runs sampled)
-  chalk        x  1,454 ops/sec ±2.71% (70 runs sampled)
-  kleur        x 54,422 ops/sec ±2.33% (76 runs sampled)
-  colourant    x 57,182 ops/sec ±1.66% (78 runs sampled)
+  ansi-colors  x  18,684 ops/sec ±1.06% (81 runs sampled)
+  chalk        x  42,756 ops/sec ±0.81% (83 runs sampled)
+  kleur        x  62,920 ops/sec ±2.09% (84 runs sampled)
+  colourant    x  61,707 ops/sec ±1.09% (77 runs sampled)
 ```
 
 ## credits
