@@ -102,7 +102,7 @@ function BuildChainableTransformer<T>( styles: StyleDefinitions, cache: Transfor
 
             if ( ! o ) o = BuildChainableTransformer<unknown>( styles, cache.concat( styles[ name ] ) );
 
-            return input ? o( input ) : o;
+            return input == null ? o : o( input );
 
         };
 
