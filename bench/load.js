@@ -12,6 +12,10 @@ console.time( "ansi-colors" );
 const color = require( "ansi-colors" );
 console.timeEnd( "ansi-colors" );
 
+console.time( "colorette" );
+const colorette = require( "colorette" );
+console.timeEnd( "colorette" );
+
 console.time( "colourant" );
 const colourant = require( ".." );
 console.timeEnd( "colourant" );

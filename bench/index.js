@@ -3,6 +3,7 @@
 const { Suite } = require( "benchmark" );
 const cursor = require( "ansi" )( process.stdout );
 const color = require( "ansi-colors" );
+const colorette = require( "colorette" );
 const chalk = require( "chalk" );
 const kleur = require( "kleur" );
 const colourant = require( ".." );
@@ -81,6 +82,11 @@ bench( "All Colors" )
         names.forEach( name => kleur[ name ]( "foo" ) );
 
     } )
+    .add( "colorette", () => {
+
+        names.forEach( name => colorette[ name ]( "foo" ) );
+
+    } )
     .add( "colourant", () => {
 
         names.forEach( name => colourant[ name ]( "foo" ) );
@@ -115,6 +121,7 @@ bench( "Nested colors" )
     .add( "ansi-colors", () => fixture( color ) )
     .add( "chalk", () => fixture( chalk ) )
     .add( "kleur", () => fixture( kleur ) )
+    .add( "colorette", () => fixture( colorette ) )
     .add( "colourant", () => fixture( colourant ) )
     .run();
 

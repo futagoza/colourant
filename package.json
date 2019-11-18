@@ -41,6 +41,7 @@
         "benchmark": "2.1.4",
         "chalk": "3.0.0",
         "codecov": "3.6.1",
+        "colorette": "1.1.0",
         "eslint": "6.6.0",
         "kleur": "3.0.3",
         "nyc": "14.1.1",

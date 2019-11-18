@@ -162,8 +162,9 @@ This library is written in [TypeScript](https://www.typescriptlang.org/), but I 
 
 ```
 chalk       :: 23.930ms
-kleur       :: 28.807ms
+kleur       :: 11.131ms
 ansi-colors ::  8.997ms
+colorette   ::  3.244ms
 colourant   ::  8.633ms
 ```
 
@@ -174,6 +175,7 @@ colourant   ::  8.633ms
   ansi-colors  x  63,296 ops/sec ±1.93% (75 runs sampled)
   chalk        x 227,988 ops/sec ±1.32% (79 runs sampled)
   kleur        x 229,516 ops/sec ±1.67% (81 runs sampled)
+  colorette    x 247,387 ops/sec ±3.44% (81 runs sampled)
   colourant    x 294,237 ops/sec ±1.50% (79 runs sampled)
 
 # Stacked colors
@@ -186,6 +188,7 @@ colourant   ::  8.633ms
   ansi-colors  x  18,684 ops/sec ±1.06% (81 runs sampled)
   chalk        x  42,756 ops/sec ±0.81% (83 runs sampled)
   kleur        x  62,920 ops/sec ±2.09% (84 runs sampled)
+  colorette    x  87,270 ops/sec ±0.82% (82 runs sampled)
   colourant    x  61,707 ops/sec ±1.09% (77 runs sampled)
 ```
 
