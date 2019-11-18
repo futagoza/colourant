@@ -8,6 +8,7 @@
 * Exposed initial value via `colourant.supportsColour()`
 * Optimized chain building (mostly in an internal method)
 * Fixed and updated sections and content in the root README.md
+* Various under-the-hood changes to the repository code
 
 <a name="1.0.0"></a>
 ## [v1.0.0](https://github.com/futagoza/colourant/commits/v1.0.0) (2019-07-24)
