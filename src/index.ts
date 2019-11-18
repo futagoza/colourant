@@ -47,27 +47,6 @@ const SUPPORTS_COLOUR = ( () => {
 /* istanbul ignore next */
 let NO_COLOR = ! SUPPORTS_COLOUR;
 
-function AssignChainableTransformers( $: unknown, styles: StyleDefinitions, cache: TransformData[] ) {
-
-    function __assign( name: string ) {
-
-        let o: ChainableTransformer<unknown>;
-
-        function get() {
-
-            if ( ! o ) o = BuildChainableTransformer<unknown>( styles, ...cache, styles[ name ] );
-
-            return o;
-
-        }
-
-        Object.defineProperty( $, name, { configurable: true, get } );
-
-    }
-    Object.keys( styles ).forEach( __assign );
-
-}
-
 function EscapeInput( input: Input, cache: TransformData[] ) {
 
     let result = input + "";
@@ -83,7 +62,7 @@ function EscapeInput( input: Input, cache: TransformData[] ) {
 
 }
 
-function BuildChainableTransformer<T>( styles: StyleDefinitions, ...cache: TransformData[] ) {
+function BuildChainableTransformer<T>( styles: StyleDefinitions, cache: TransformData[] ) {
 
     let PREFACE = "";
     let POSTFIX = "";
@@ -115,7 +94,20 @@ function BuildChainableTransformer<T>( styles: StyleDefinitions, ...cache: Trans
 
         };
 
-    AssignChainableTransformers( $, styles, cache );
+    function __assign( name: string ) {
+
+        let o: ChainableTransformer<unknown>;
+
+        $[ name ] = function next( input?: Input ) {
+
+            if ( ! o ) o = BuildChainableTransformer<unknown>( styles, cache.concat( styles[ name ] ) );
+
+            return input ? o( input ) : o;
+
+        };
+
+    }
+    Object.keys( styles ).forEach( __assign );
 
     return $ as ChainableTransformer<T>;
 
@@ -319,7 +311,7 @@ colourant.chain = <T>( codemap: CodeGroupMap<T> ) => {
     }
     Object.keys( codemap ).forEach( __build );
 
-    return BuildChainableTransformer<T>( styles );
+    return BuildChainableTransformer<T>( styles, [] );
 
 };
 
@@ -335,18 +327,20 @@ colourant.assign = <T, M>( target: T, codemap: CodeGroupMap<M> ) => {
 
         styles[ name ] = BuildStyleDefinition( name, codemap[ name ] );
 
+        return name;
+
     }
 
     function __assign( name: string ) {
 
-        target[ name ] = BuildChainableTransformer<unknown>( styles, styles[ name ] );
+        target[ name ] = BuildChainableTransformer<unknown>( styles, [ styles[ name ] ] );
 
     }
 
-    const keys = Object.keys( codemap );
-
-    keys.forEach( __build );
-    keys.forEach( __assign );
+    Object
+        .keys( codemap )
+        .map( __build )
+        .forEach( __assign );
 
     return target as T & ChainTransformerMap<M>;
 
