@@ -11,7 +11,7 @@ A Node.js library for formatting terminal text using ANSI
 ## features
 
 * No dependencies
-* Super [performant](#performance)
+* Super [performant](#benchmarks)
 * Supports [nested](#nested-methods) & [chained](#chained-methods) colours
 * No `String.prototype` modifications
 * Conditional [colour support](#conditional-support)
@@ -149,6 +149,10 @@ colourant.error( string )
 // Returns `true` if your env supports colouring by default (checked on library load)
 colourant.supportsColour()
 ```
+
+#### TypeScript
+
+This library is written in [TypeScript](https://www.typescriptlang.org/), but I wanted to export the `colourant` function as a CommonJS default export (assigning it to Node's `module.exports`) so that it's usable via just calling `require( "colourant" )` instead of `require( "colourant" ).colourant` or `require( "colourant" ).default`; To import an exported interface or type, juse import the generated modules directly from `colourant/out`
 
 ## benchmarks
 
