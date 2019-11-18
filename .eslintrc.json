@@ -1,5 +1,9 @@
 {
-    "extends": "@futagoza",
+    "extends": [
+        "@futagoza/node/8",
+        "@futagoza/typescript",
+        "@futagoza/dev/test"
+    ],
     "rules": {
         "@typescript-eslint/explicit-function-return-type": 0,
         "@typescript-eslint/no-unnecessary-condition": 0,
