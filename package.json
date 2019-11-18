@@ -24,7 +24,7 @@
         "ava+update-snapshots": "ava -u",
         "test": "nyc ava",
         "benchmark": "npm run rebuild && npm run benchmark:load && npm run benchmark:perf",
-        "lint": "eslint .",
+        "lint": "eslint --ext .js,.ts .",
         "benchmark:perf": "node bench",
         "benchmark:load": "node bench/load",
         "rebuild": "rimraf out && tsc -p src",

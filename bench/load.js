@@ -1,7 +1,5 @@
 "use strict";
 
-/* eslint-disable no-unused-vars */
-
 console.time( "chalk" );
 const chalk = require( "chalk" );
 console.timeEnd( "chalk" );
