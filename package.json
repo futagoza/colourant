@@ -33,20 +33,20 @@
         "postversion": "git push --follow-tags && npm publish"
     },
     "devDependencies": {
-        "@futagoza/eslint-config": "8.3.0",
+        "@futagoza/eslint-config": "11.2.0",
         "@futagoza/tsconfig": "1.0.0",
         "ansi": "0.3.1",
         "ansi-colors": "4.1.1",
-        "ava": "2.2.0",
+        "ava": "2.4.0",
         "benchmark": "2.1.4",
-        "chalk": "2.4.2",
-        "codecov": "3.5.0",
-        "eslint": "6.1.0",
+        "chalk": "3.0.0",
+        "codecov": "3.6.1",
+        "eslint": "6.6.0",
         "kleur": "3.0.3",
         "nyc": "14.1.1",
-        "rimraf": "2.6.3",
-        "ts-node": "8.3.0",
-        "typescript": "3.5.3"
+        "rimraf": "3.0.0",
+        "ts-node": "8.5.2",
+        "typescript": "3.7.2"
     },
     "engines": {
         "node": ">= 8"
