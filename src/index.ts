@@ -1,3 +1,5 @@
+import * as tty from "tty";
+
 import codes from "./codes";
 import {
 
@@ -14,18 +16,36 @@ import {
 
 /* ============================== @private ============================== */
 
-let NO_COLOR = ( () => {
+/* istanbul ignore next */
+const SUPPORTS_COLOUR = ( () => {
 
-    const { env, stdout } = process;
+    const { env } = process;
+    const FORCE_COLOR = "FORCE_COLOR" in env;
 
-    return "NO_COLOR" in env
-        || "NODE_DISABLE_COLORS" in env
-        || env.FORCE_COLOR === "0"
-        || ( stdout && stdout.isTTY !== true )
-        || ! ( "TERM" in env )
-        || env.TERM === "dumb";
+    if ( "NO_COLOR" in env || "NODE_DISABLE_COLORS" in env ) return false;
+
+    if ( FORCE_COLOR && env.FORCE_COLOR !== "false" && env.FORCE_COLOR !== "0" ) return true;
+
+    if ( tty.isatty( 1 ) && ! FORCE_COLOR ) return true;
+
+    if ( env.TERM === "dumb" ) return FORCE_COLOR;
+
+    if ( env.CI === "TRAVIS" || env.CI === "TRAVIS" || env.CI === "TRAVIS" || env.CI === "TRAVIS" ) return true;
+
+    if ( env.CI_NAME === "codeship" ) return true;
+
+    if ( env.TEAMCITY_VERSION && ( /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/ ).test( env.TEAMCITY_VERSION ) ) return true;
+
+    if ( "GITHUB_ACTIONS" in env ) return true;
+
+    if ( env.TERM && ( /^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/i ).test( env.TERM ) ) return true;
+
+    return "COLORTERM" in env;
 
 } )();
+
+/* istanbul ignore next */
+let NO_COLOR = ! SUPPORTS_COLOUR;
 
 function AssignChainableTransformers( $: unknown, styles: StyleDefinitions, cache: TransformData[] ) {
 
@@ -331,6 +351,12 @@ colourant.assign = <T, M>( target: T, codemap: CodeGroupMap<M> ) => {
     return target as T & ChainTransformerMap<M>;
 
 };
+
+/**
+ * Can be used to check if the CLI enviroment supports color.
+ */
+/* istanbul ignore next */
+colourant.supportsColour = () => SUPPORTS_COLOUR;
 
 /* ============================== @default-export ============================== */
 

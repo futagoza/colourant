@@ -65,7 +65,7 @@ console.log( yellow( "foo " + red().bold( "red" ) + " bar " + cyan( "cyan" ) + "
 
 #### Conditional Support
 
-Toggle colour support as needed; `colourant` includes simple auto-detection which may not cover all cases.
+Toggle colour support as needed; `colourant` includes auto-detection, but may not cover all cases.
 
 ```js
 const colourant = require( "colourant" );
@@ -145,6 +145,9 @@ colourant.warning( string )
 
 // Returns a red string
 colourant.error( string )
+
+// Returns `true` if your env supports colouring by default (checked on library load)
+colourant.supportsColour()
 ```
 
 ## benchmarks
