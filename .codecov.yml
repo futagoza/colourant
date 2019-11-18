@@ -1,12 +1,8 @@
 codecov:
   ci:
-    - dev.azure.com
+    - github.com
 
 ignore:
   - "**/*.js"
   - "**/*.d.ts"
   - "test/**/*.ts"
-
-parsers:
-  javascript:
-    enable_partials: yes
