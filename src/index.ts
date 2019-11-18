@@ -265,33 +265,33 @@ colourant.from = ( ( start: number | CodeGroup, end: number ) => {
 };
 
 /**
- * Simple, non-chainable string transformer to color a string representaion of a date or time.
+ * Simple, non-chainable string transformer to colour a string representaion of a date or time.
  *
- * Default color: __gray__ / __grey__
+ * Default colour: __gray__ / __grey__
  */
 
 colourant.time = colourant.from( 90, 39 );
 
 /**
- * Simple, non-chainable string transformer to color _informative_ text.
+ * Simple, non-chainable string transformer to colour _informative_ text.
  *
- * Default color: __white__
+ * Default colour: __white__
  */
 
 colourant.info = colourant.from( 37, 39 );
 
 /**
- * Simple, non-chainable string transformer to color text that conveys a _warning_ to the end user.
+ * Simple, non-chainable string transformer to colour text that conveys a _warning_ to the end user.
  *
- * Default color: __yellow__
+ * Default colour: __yellow__
  */
 
 colourant.warning = colourant.from( 33, 39 );
 
 /**
- * Simple, non-chainable string transformer to color text that conveys an _error_ has accured.
+ * Simple, non-chainable string transformer to colour text that conveys an _error_ has accured.
  *
- * Default color: __red__
+ * Default colour: __red__
  */
 
 colourant.error = colourant.from( 31, 39 );
@@ -347,7 +347,7 @@ colourant.assign = <T, M>( target: T, codemap: CodeGroupMap<M> ) => {
 };
 
 /**
- * Can be used to check if the CLI enviroment supports color.
+ * Can be used to check if the CLI enviroment supports colour.
  */
 /* istanbul ignore next */
 colourant.supportsColour = () => SUPPORTS_COLOUR;
